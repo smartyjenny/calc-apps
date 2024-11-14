@@ -9,9 +9,13 @@ import (
 	calclib "github.com/smartyjenny/calc-lib"
 )
 
+type Calculator interface {
+	Calculate(a, b int) int
+}
+
 type Handler struct {
 	stdout     io.Writer
-	calculator *calclib.Addition
+	calculator Calculator
 }
 
 func NewHandler(stdout io.Writer, calculator *calclib.Addition) Handler {
