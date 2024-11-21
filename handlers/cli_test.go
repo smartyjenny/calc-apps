@@ -59,3 +59,11 @@ type ErrWriter struct {
 func (this *ErrWriter) Write(p []byte) (n int, err error) {
 	return 0, this.err
 }
+
+type ErrReader struct {
+	err error
+}
+
+func (this *ErrReader) Read(p []byte) (n int, err error) {
+	return 0, this.err
+}
