@@ -3,8 +3,9 @@ package handlers
 import (
 	"net/http"
 	"net/http/httptest"
-	"reflect"
 	"testing"
+
+	"backend-training/cohort-c-2/calc-apps/externals/should"
 )
 
 func assertHTTP(t *testing.T, method, target string, expectedStatus int, expectedContentType, expectedResponse string) {
@@ -51,8 +52,8 @@ func TestHTTPServer_NotFound(t *testing.T) {
 }
 
 func assertEqual(t *testing.T, actual, expected any) {
-	t.Helper()
-	if !reflect.DeepEqual(actual, expected) {
-		t.Errorf("want [%v], got [%v]\n", expected, actual)
+	err := should.Equal(actual, expected)
+	if err != nil {
+		t.Errorf("expected [%v], got [%v]\n", expected, actual)
 	}
 }
