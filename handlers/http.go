@@ -16,6 +16,9 @@ type Router struct {
 func NewRouter(logger *log.Logger) http.Handler {
 	router := http.NewServeMux()
 	router.Handle("GET /add", newHTTPHandler(logger, &calc_lib.Addition{}))
+	router.Handle("GET /sub", newHTTPHandler(logger, &calc_lib.Subtraction{}))
+	router.Handle("GET /multiply", newHTTPHandler(logger, &calc_lib.Multiplication{}))
+	router.Handle("GET /division", newHTTPHandler(logger, &calc_lib.Division{}))
 	return router
 }
 
@@ -46,6 +49,9 @@ func (this *HTTPHandler) ServeHTTP(response http.ResponseWriter, request *http.R
 	}
 
 	c := this.calculator.Calculate(a, b)
-	_, _ = fmt.Fprint(response, c)
+	_, err = fmt.Fprint(response, c)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 }
