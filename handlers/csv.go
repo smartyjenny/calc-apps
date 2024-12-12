@@ -30,7 +30,7 @@ func (this *CSVHandler) Handle() error {
 			break
 		}
 		if err != nil {
-			// TODO
+			return err
 		}
 		a, err := strconv.Atoi(record[0])
 		if err != nil {
@@ -51,7 +51,7 @@ func (this *CSVHandler) Handle() error {
 		c := calculator.Calculate(a, b)
 		err = this.output.Write(append(record, strconv.Itoa(c)))
 		if err != nil {
-			break
+			return err
 		}
 		this.output.Flush()
 	}
