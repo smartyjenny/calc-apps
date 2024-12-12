@@ -5,12 +5,13 @@ import (
 	"errors"
 	"testing"
 
+	"backend-training/cohort-c-2/calc-apps/externals/should"
+
 	calclib "github.com/smartyjenny/calc-lib"
 )
 
 func assertError(t *testing.T, actual, target error) {
-	t.Helper()
-	if !errors.Is(target, actual) {
+	if should.Equal(actual, target) != nil {
 		t.Errorf("got: %v, want: %v", actual, target)
 	}
 
