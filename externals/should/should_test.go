@@ -2,6 +2,7 @@ package should_test
 
 import (
 	"errors"
+	"fmt"
 	"testing"
 
 	"backend-training/cohort-c-2/calc-apps/externals/should"
@@ -61,6 +62,13 @@ func TestShouldBeNil(t *testing.T) {
 
 func TestShouldNotEqual(t *testing.T) {
 	pass(t, 1, should.NOT.Equal, 2)
+}
+
+func TestShouldWrapError(t *testing.T) {
+	inner := errors.New("inner")
+	outer := fmt.Errorf("output %w", inner)
+	pass(t, outer, should.WrapError, inner)
+	fail(t, inner, should.WrapError, outer)
 }
 
 func pass(t *testing.T, actual any, assert should.Assertion, expected ...any) {

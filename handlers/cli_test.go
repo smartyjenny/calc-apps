@@ -20,13 +20,13 @@ func assertError(t *testing.T, actual, target error) {
 func TestHandler_WrongNumberOfArgs(t *testing.T) {
 	handler := NewHandler(nil, nil)
 	err := handler.Handle(nil)
-	assertError(t, err, errWrongNumberOfArgs)
+	should.So(t, err, should.WrapError, errWrongNumberOfArgs)
 }
 
 func TestHandler_InvalidFirstArg(t *testing.T) {
 	handler := NewHandler(nil, nil)
 	err := handler.Handle([]string{"INVALID", "2"})
-	assertError(t, err, errInvalidArg)
+	should.So(t, err, should.WrapError, errInvalidArg)
 }
 
 func TestHandler_InvalidSecondArg(t *testing.T) {

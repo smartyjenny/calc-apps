@@ -41,7 +41,16 @@ func BeFalse(actual any, _ ...any) error {
 }
 func BeNil(actual any, _ ...any) error {
 	return Equal(actual, nil)
-} // TODO
+}
+func WrapError(actual any, expected ...any) error {
+	actualErr, _ := actual.(error)
+	expectedErr, _ := expected[0].(error)
+	if !errors.Is(actualErr, expectedErr) {
+		return fmt.Errorf("%w: expected [%v] to wrap [%v] (but it didn't)",
+			ErrAssertionFailure, actual, expected[0])
+	}
+	return nil
+}
 
 type negated struct{}
 
